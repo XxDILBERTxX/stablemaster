@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraft.server.v1_7_R3.AttributeInstance;
-import net.minecraft.server.v1_7_R3.EntityInsentient;
-import net.minecraft.server.v1_7_R3.GenericAttributes;
+import net.minecraft.server.v1_11_R1.AttributeInstance;
+import net.minecraft.server.v1_11_R1.EntityInsentient;
+import net.minecraft.server.v1_11_R1.GenericAttributes;
 
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftLivingEntity;
 
 //import plugin.Nogtail.nHorses.*;
 import net.citizensnpcs.api.npc.NPC;
@@ -18,6 +18,10 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
+import org.bukkit.entity.Mule;
+import org.bukkit.entity.Donkey;
+import org.bukkit.entity.SkeletonHorse;
+import org.bukkit.entity.ZombieHorse;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
@@ -42,6 +46,7 @@ import com.github.izbay.stablemaster.StableMgr.StableAcct;
  * @author izbay The bulk of stablemaster logic is handled here. By using
  *         inventory to build an interface, navigation of interactions is more
  *         intuitive.
+ *         
  */
 public class Menu implements Listener {
 	// Who is looking at the stable menu.
@@ -159,29 +164,96 @@ public class Menu implements Listener {
 				((Pig) newMount).setSaddle(true);
 
 			} else if (mount.getType().equals(EntityType.HORSE)) {
-				((Horse) newMount).setTamed(true);
-				((Horse) newMount).setVariant(mount.getVariant());
-				if (mount.getVariant().equals(Horse.Variant.HORSE)) {
-					((Horse) newMount).setColor(mount.getColor());
-					((Horse) newMount).setStyle(mount.getStyle());
-				}
+				((Horse) newMount).setColor(mount.getColor());
+				((Horse) newMount).setStyle(mount.getStyle());
 				((Horse) newMount).setMaxHealth(mount.getHealth());
 				((Horse) newMount).setJumpStrength(mount.getJumpstr());
-				((Horse) newMount).setCarryingChest(mount.HasChest());
-				
+				//((Horse) newMount).setCarryingChest(mount.HasChest());
 				if (mount.HasChest()) {
 					((Horse) newMount).getInventory().setContents(mount.getInventory());
 				}
-				
 				((Horse) newMount).getInventory().setSaddle(mount.getSaddle());
 				((Horse) newMount).getInventory().setArmor(mount.getArmor());
 				((Horse) newMount).setTamed(true);
+				((Horse) newMount).setAdult();
 				((Horse) newMount).setOwner(player);
 				AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) newMount)
-						.getHandle()).getAttributeInstance(GenericAttributes.d);
+						.getHandle()).getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
 				attributes.setValue(mount.getSpeed());
+
+			} else if (mount.getType().equals(EntityType.MULE)) {
+				((Mule) newMount).setMaxHealth(mount.getHealth());
+				((Mule) newMount).setJumpStrength(mount.getJumpstr());
+				//((Mule) newMount).setSaddle(true);
+				((Mule) newMount).setCarryingChest(mount.HasChest());
+				if (mount.HasChest()) {
+					((Mule) newMount).getInventory().setContents(mount.getInventory());
+				}
+				//((Mule) newMount).getInventory().setSaddle(mount.getSaddle());
+				//((Mule) newMount).getInventory().setArmor(mount.getArmor());
+				((Mule) newMount).setTamed(true);
+				((Mule) newMount).setAdult();
+				((Mule) newMount).setCarryingChest(true);
+				((Mule) newMount).setOwner(player);
+				AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) newMount)
+						.getHandle()).getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
+				attributes.setValue(mount.getSpeed());
+				
+			} else if (mount.getType().equals(EntityType.DONKEY)) {
+				((Donkey) newMount).setMaxHealth(mount.getHealth());
+				((Donkey) newMount).setJumpStrength(mount.getJumpstr());
+				((Donkey) newMount).setCarryingChest(mount.HasChest());
+				if (mount.HasChest()) {
+					((Donkey) newMount).getInventory().setContents(mount.getInventory());
+				}
+				//((Donkey) newMount).getInventory().setSaddle(mount.getSaddle());
+				//((Donkey) newMount).getInventory().setArmor(mount.getArmor());
+				((Donkey) newMount).setTamed(true);
+				((Donkey) newMount).setAdult();
+				((Donkey) newMount).setCarryingChest(true);
+				((Donkey) newMount).setOwner(player);
+				AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) newMount)
+						.getHandle()).getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
+				attributes.setValue(mount.getSpeed());
+				
+			} else if (mount.getType().equals(EntityType.SKELETON_HORSE)) {
+				((SkeletonHorse) newMount).setMaxHealth(mount.getHealth());
+				((SkeletonHorse) newMount).setJumpStrength(mount.getJumpstr());
+				//((SkeletonHorse) newMount).setCarryingChest(mount.HasChest());
+				/*if (mount.HasChest()) {
+					((SkeletonHorse) newMount).getInventory().setContents(mount.getInventory());
+				}*/
+				//((SkeletonHorse) newMount).getInventory().setSaddle(mount.getSaddle());
+				//((Donkey) newMount).getInventory().setArmor(mount.getArmor());
+				((SkeletonHorse) newMount).setTamed(true);
+				//((SkeletonHorse) newMount).setSaddle(true);
+				((SkeletonHorse) newMount).setAdult();
+				//((Horse) newMount).setCarryingChest(true);
+				((SkeletonHorse) newMount).setOwner(player);
+				AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) newMount)
+						.getHandle()).getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
+				attributes.setValue(mount.getSpeed());
+				
+			} else if (mount.getType().equals(EntityType.ZOMBIE_HORSE)) {
+				((ZombieHorse) newMount).setMaxHealth(mount.getHealth());
+				((ZombieHorse) newMount).setJumpStrength(mount.getJumpstr());
+				//((ZombieHorse) newMount).setCarryingChest(mount.HasChest());
+				/*if (mount.HasChest()) {
+					((ZombieHorse) newMount).getInventory().setContents(mount.getInventory());
+				}*/
+				//((ZombieHorse) newMount).getInventory().setSaddle(mount.getSaddle());
+				//((ZombieHorse) newMount).getInventory().setArmor(mount.getArmor());
+				((ZombieHorse) newMount).setTamed(true);
+				//((ZombieHorse) newMount).setSaddle(true);
+				((ZombieHorse) newMount).setAdult();
+				//((ZombieHorse) newMount).setCarryingChest(true);
+				((ZombieHorse) newMount).setOwner(player);
+				AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) newMount)
+						.getHandle()).getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
+				attributes.setValue(mount.getSpeed());
+				
 			}
-			
+
 			/** UUID Compatability
 			if(hasnHorses && mount.getUUID() != null)
 				nHorses.getDataManager().changeUuid(mount.getUUID(), newMount.getUniqueId());
@@ -189,10 +261,8 @@ public class Menu implements Listener {
 			
 			if (!player.isInsideVehicle())
 				newMount.setPassenger(player);
-			
-
 		}
-	}
+	} 
 
 	@EventHandler
 	void onInventoryClick(InventoryClickEvent event) {
@@ -241,6 +311,23 @@ public class Menu implements Listener {
 								if (vehicle.getType().equals(EntityType.HORSE)) {
 									mount = sm.new Mount(name, vehicle.getType(), 
 											System.currentTimeMillis(), (Horse) vehicle);
+											
+								} else if (vehicle.getType().equals(EntityType.MULE)) {
+									mount = sm.new Mount(name, vehicle.getType(), 
+											System.currentTimeMillis(), (Mule) vehicle);
+											
+								} else if (vehicle.getType().equals(EntityType.DONKEY)) {
+									mount = sm.new Mount(name, vehicle.getType(), 
+											System.currentTimeMillis(), (Donkey) vehicle);
+											
+								} else if (vehicle.getType().equals(EntityType.SKELETON_HORSE)) {
+									mount = sm.new Mount(name, vehicle.getType(), 
+											System.currentTimeMillis(), (SkeletonHorse) vehicle);
+											
+								} else if (vehicle.getType().equals(EntityType.ZOMBIE_HORSE)) {
+									mount = sm.new Mount(name, vehicle.getType(), 
+											System.currentTimeMillis(), (ZombieHorse) vehicle);
+											
 								} else {
 									mount = sm.new Mount(name, vehicle.getType(), 
 											System.currentTimeMillis());
@@ -360,23 +447,19 @@ public class Menu implements Listener {
 				button = new ItemStack(Material.CARROT_ITEM, 1);
 
 			} else if (mount.getType().equals(EntityType.HORSE)) {
+				button = new ItemStack(Material.SADDLE, 1);
 
-				if (mount.getVariant() == null || mount.getVariant().equals(Horse.Variant.HORSE)) {
-					button = new ItemStack(Material.SADDLE, 1);
+			} else if (mount.getType().equals(EntityType.MULE)) {
+				button = new ItemStack(Material.CHEST, 1);
 
-				} else if (mount.getVariant().equals(Horse.Variant.MULE)) {
-					button = new ItemStack(Material.CHEST, 1);
+			} else if (mount.getType().equals(EntityType.DONKEY)) {
+				button = new ItemStack(Material.APPLE, 1);
 
-				} else if (mount.getVariant().equals(Horse.Variant.DONKEY)) {
-					button = new ItemStack(Material.APPLE, 1);
-
-				} else if (mount.getVariant().equals(
-						Horse.Variant.SKELETON_HORSE)) {
-					button = new ItemStack(Material.BONE, 1);
-
-				} else {// It's a zombie.
+			} else if (mount.getType().equals(EntityType.SKELETON_HORSE)) {
+				button = new ItemStack(Material.BONE, 1);
+				
+			} else {// It's a zombie.
 					button = new ItemStack(Material.ROTTEN_FLESH, 1);
-				}
 			}
 
 			ItemMeta im = button.getItemMeta();
@@ -1047,47 +1130,44 @@ public class Menu implements Listener {
 										IOManager.getSomeName(),
 										EntityType.HORSE,
 										System.currentTimeMillis());
-								thisMount.setVariant(Horse.Variant.HORSE);
-
-								// Set the color/pattern.
-								thisMount.setColor(Horse.Color.values()[color]);
-								thisMount.setStyle(Horse.Style.values()[pattern]);
+										thisMount.setColor(Horse.Color.values()[color]);
+										thisMount.setStyle(Horse.Style.values()[pattern]);
 								break;
 
 							// Mule
 							case 2:
 								thisMount = sm.new Mount(
 										IOManager.getSomeName(),
-										EntityType.HORSE,
+										EntityType.MULE,
 										System.currentTimeMillis());
-								thisMount.setVariant(Horse.Variant.MULE);
+								//thisMount.setVariant(Horse.Variant.MULE);
 								break;
 
 							// Donkey
 							case 3:
 								thisMount = sm.new Mount(
 										IOManager.getSomeName(),
-										EntityType.HORSE,
+										EntityType.DONKEY,
 										System.currentTimeMillis());
-								thisMount.setVariant(Horse.Variant.DONKEY);
+								//thisMount.setVariant(Horse.Variant.DONKEY);
 								break;
 
 							// Skeleton
 							case 4:
 								thisMount = sm.new Mount(
 										IOManager.getSomeName(),
-										EntityType.HORSE,
+										EntityType.SKELETON_HORSE,
 										System.currentTimeMillis());
-								thisMount.setVariant(Horse.Variant.SKELETON_HORSE);
+								//thisMount.setVariant(Horse.Variant.SKELETON_HORSE);
 								break;
 
 							// Zombie
 							case 5:
 								thisMount = sm.new Mount(
 										IOManager.getSomeName(),
-										EntityType.HORSE,
+										EntityType.ZOMBIE_HORSE,
 										System.currentTimeMillis());
-								thisMount.setVariant(Horse.Variant.UNDEAD_HORSE);
+								//thisMount.setVariant(Horse.Variant.UNDEAD_HORSE);
 								break;
 							}
 

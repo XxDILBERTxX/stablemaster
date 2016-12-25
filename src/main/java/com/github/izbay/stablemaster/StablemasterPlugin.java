@@ -48,11 +48,11 @@ public class StablemasterPlugin extends JavaPlugin {
 		this.saveDefaultConfig();
 		config = this.getConfig();
 
-		// If configured to do so, check the latest version on BukkitDEV and
+		/* If configured to do so, check the latest version on BukkitDEV and
 		// alert if user is out of date.
 		if (config.getBoolean("check-update")) {
 			new Thread(new CheckUpdate(this)).start();
-		}
+		}*/
 
 		File stable = new File(getDataFolder() + File.separator + "stable.bin");
 
@@ -110,7 +110,7 @@ public class StablemasterPlugin extends JavaPlugin {
 		}
 
 		// Save the stables on a repeating thread.
-		long saveInterval = (long) (config.getInt("auto-save") * 1200);
+		long saveInterval = config.getInt("auto-save") * 1200;
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
 				saveStables();
@@ -219,7 +219,7 @@ public class StablemasterPlugin extends JavaPlugin {
 
 		if (!hasDebt.isEmpty()) {
 			for (Entry<String, Integer> entry : hasDebt.entrySet()) {
-				temp = sm.new StableAcct((double) ((Integer) entry.getValue()));
+				temp = sm.new StableAcct((entry.getValue()));
 				String newKey = entry.getKey().replace("CraftPlayer{name=", "")
 						.replace("}", "");
 				result.put(newKey, temp);

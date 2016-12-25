@@ -11,7 +11,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Boat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Horse;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
@@ -271,17 +270,17 @@ public class IOManager {
 	public static double getCost(Player player, Mount mount) {
 		long elapsedDays = (System.currentTimeMillis() - mount.getTime())
 				/ (86400 * 1000);
-		double cost = (double) 0;
+		double cost = 0;
 		if (elapsedDays < 1
 				|| player.hasPermission("stablemaster.noble.service")) {
 			return cost;
 		} else {
 			if (mount.getType().equals(EntityType.BOAT)) {
-				cost = (double) (elapsedDays * Traits.wharf.getPricePerDay());
+				cost = elapsedDays * Traits.wharf.getPricePerDay();
 			} else if (mount.getType().equals(EntityType.MINECART)) {
-				cost = (double) (elapsedDays * Traits.station.getPricePerDay());
+				cost = elapsedDays * Traits.station.getPricePerDay();
 			} else {
-				cost = (double) (elapsedDays * Traits.stable.getPricePerDay());
+				cost = elapsedDays * Traits.stable.getPricePerDay();
 			}
 			return cost;
 		}
@@ -307,7 +306,7 @@ public class IOManager {
 	}
 
 	public static double getTotalCost(Player player, StableAcct acct) {
-		double cost = (double) 0;
+		double cost = 0;
 		for (int i = 0; i < acct.getNumMounts(); i++) {
 			cost += getCost(player, acct.getMount(i));
 		}
@@ -364,14 +363,6 @@ public class IOManager {
 			LivingEntity lvehicle = (LivingEntity) vehicle;
 			if (lvehicle.getCustomName() != null) {
 				return lvehicle.getCustomName();
-			}
-		}
-		if (vehicle.getType().equals(EntityType.HORSE)) {
-			if (((Horse) vehicle).getVariant().equals(Horse.Variant.MULE)) {
-				return "Mule";
-			} else if (((Horse) vehicle).getVariant().equals(
-					Horse.Variant.DONKEY)) {
-				return "Donkey";
 			}
 		}
 		return vehicle.getClass().getSimpleName().replace("Craft", "");

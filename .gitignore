@@ -170,3 +170,4 @@ pip-log.txt
 # Mac crap
 .DS_Store
 /target
+craftbukkit-1.11.jar
