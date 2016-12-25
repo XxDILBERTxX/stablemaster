@@ -1,13 +1,13 @@
 auto-save: 60 #interval for auto-saving in minutes.
-check-update: true #automatically checks for updates. Set to false to disable.
+check-update: false #automatically checks for updates. Set to false to disable.
 lang: en
 
 mount-cost: #setting of > 0 disables sale. 0 enables free give-away.
   pig: 50
   horse: 150
   donkey: 100
-  mule: 100
-  skeleton: 1000
+  mule: 125
+  skeleton: -1
   zombie: -1
   health: 5
   speed: 15

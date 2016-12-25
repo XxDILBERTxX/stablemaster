@@ -99,7 +99,7 @@ public class WharfmasterTrait extends Trait implements Listener {
 							public void run() {
 								grabbed.remove(player);
 							}
-						}, (int) 2);
+						}, 2);
 				IOManager.msg(player, Action.give, boat);
 				boat.setPassenger(player);
 			} else {

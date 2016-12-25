@@ -8,20 +8,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import net.minecraft.server.v1_7_R3.AttributeInstance;
-import net.minecraft.server.v1_7_R3.EntityInsentient;
-import net.minecraft.server.v1_7_R3.GenericAttributes;
+import net.minecraft.server.v1_11_R1.AttributeInstance;
+import net.minecraft.server.v1_11_R1.EntityInsentient;
+import net.minecraft.server.v1_11_R1.GenericAttributes;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_7_R3.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Horse.Color;
 import org.bukkit.entity.Horse.Style;
 import org.bukkit.entity.Horse.Variant;
+import org.bukkit.entity.Mule;
+import org.bukkit.entity.Donkey;
+import org.bukkit.entity.SkeletonHorse;
+import org.bukkit.entity.ZombieHorse;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -274,7 +278,7 @@ public class StableMgr implements Serializable {
 			this.jumpstr = horse.getJumpStrength();
 
 			AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) horse)
-					.getHandle()).getAttributeInstance(GenericAttributes.d);
+					.getHandle()).getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
 			this.speed = attributes.getValue();
 			ItemStack saddle = horse.getInventory().getSaddle();
 			if (saddle != null){
@@ -288,6 +292,129 @@ public class StableMgr implements Serializable {
 					Inventory.add((e==null)?null:e.serialize());
 				}
 			}
+		}
+		
+		public Mount(String name, EntityType type, Long time, Mule mule) {
+			this.name = name;
+			this.type = type;
+			this.time = time;
+			this.variant = mule.getVariant();
+			//this.color = mule.getColor();
+			//this.style = mule.getStyle();
+			this.haschest = mule.isCarryingChest();
+			this.health = ((Damageable)mule).getMaxHealth();
+			this.jumpstr = mule.getJumpStrength();
+
+			AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) mule)
+					.getHandle()).getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
+			this.speed = attributes.getValue();
+			/*
+			ItemStack saddle = mule.getInventory().getSaddle();
+			if (saddle != null){
+				setSaddle(saddle);
+			}
+			
+			/*if (mule.getInventory().getArmor() != null)
+				this.Armor = new ItemStack(mule.getInventory()
+						.getArmor()).serialize();
+						*/
+			if (this.haschest) {
+				for (ItemStack e : mule.getInventory().getContents()) {
+					Inventory.add((e==null)?null:e.serialize());
+				}
+			}
+		}
+		
+		public Mount(String name, EntityType type, Long time, Donkey donkey) {
+			this.name = name;
+			this.type = type;
+			this.time = time;
+			this.variant = donkey.getVariant();
+			//this.color = donkey.getColor();
+			//this.style = donkey.getStyle();
+			this.haschest = donkey.isCarryingChest();
+			this.health = ((Damageable)donkey).getMaxHealth();
+			this.jumpstr = donkey.getJumpStrength();
+
+			AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) donkey)
+					.getHandle()).getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
+			this.speed = attributes.getValue();
+			/*ItemStack saddle = donkey.getInventory().getSaddle();
+			if (saddle != null){
+				setSaddle(saddle);
+			}*/
+			
+			/*if (donkey.getInventory().getArmor() != null)
+				this.Armor = new ItemStack(donkey.getInventory()
+						.getArmor()).serialize();
+						*/
+			if (this.haschest) {
+				for (ItemStack e : donkey.getInventory().getContents()) {
+					Inventory.add((e==null)?null:e.serialize());
+				}
+			}
+		}
+		
+		public Mount(String name, EntityType type, Long time, SkeletonHorse skeletonhorse) {
+			this.name = name;
+			this.type = type;
+			this.time = time;
+			this.variant = skeletonhorse.getVariant();
+			//this.color = skeletonhorse.getColor();
+			//this.style = skeletonhorse.getStyle();
+			//this.haschest = skeletonhorse.isCarryingChest();
+			this.health = ((Damageable)skeletonhorse).getMaxHealth();
+			this.jumpstr = skeletonhorse.getJumpStrength();
+
+			AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) skeletonhorse)
+					.getHandle()).getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
+			this.speed = attributes.getValue();
+			/*ItemStack saddle = skeletonhorse.getInventory().getSaddle();
+			if (saddle != null){
+				setSaddle(saddle);
+			}
+			*/
+			/*
+			if (skeletonhorse.getInventory().getArmor() != null)
+				this.Armor = new ItemStack(skeletonhorse.getInventory()
+						.getArmor()).serialize();
+			/
+			if (this.haschest) {
+				for (ItemStack e : skeletonhorse.getInventory().getContents()) {
+					Inventory.add((e==null)?null:e.serialize());
+				}
+			}*/
+		}
+		
+		public Mount(String name, EntityType type, Long time, ZombieHorse zombiehorse) {
+			this.name = name;
+			this.type = type;
+			this.time = time;
+			this.variant = zombiehorse.getVariant();
+			//this.color = zombiehorse.getColor();
+			//this.style = zombiehorse.getStyle();
+			//this.haschest = zombiehorse.isCarryingChest();
+			this.health = ((Damageable)zombiehorse).getMaxHealth();
+			this.jumpstr = zombiehorse.getJumpStrength();
+
+			AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) zombiehorse)
+					.getHandle()).getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
+			this.speed = attributes.getValue();
+			/*ItemStack saddle = zombiehorse.getInventory().getSaddle();
+			if (saddle != null){
+				setSaddle(saddle);
+			}
+			*/
+			/*
+			if (zombiehorse.getInventory().getArmor() != null)
+				this.Armor = new ItemStack(zombiehorse.getInventory()
+						.getArmor()).serialize();
+			/
+			if (this.haschest) {
+				for (ItemStack e : zombiehorse.getInventory().getContents()) {
+					Inventory.add((e==null)?null:e.serialize());
+				}
+			}*/
 		}
 
 		/**

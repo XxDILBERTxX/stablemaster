@@ -97,7 +97,7 @@ public class StationmasterTrait extends Trait implements Listener {
 							public void run() {
 								grabbed.remove(player);
 							}
-						}, (int) 2);
+						}, 2);
 				IOManager.msg(player, Action.give, "cart");
 				cart.setPassenger(player);
 			} else {
