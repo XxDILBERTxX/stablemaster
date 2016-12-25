@@ -11,4 +11,7 @@ mvn clean package
 
 from a command line.
 
-You will need to supply your own copy of CraftBukkit 1.7.9+, place it into the lib directory, and edit the pom.xml to point to your jar.
+You will need to supply your own copy of CraftBukkit V#.#.jar, place it into the lib directory, and edit the pom.xml to point to your jar.
+
+ XxDILBERTxX:
+I Take no credit for this plugin.. i just updated it
