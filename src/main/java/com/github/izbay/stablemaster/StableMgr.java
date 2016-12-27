@@ -270,16 +270,17 @@ public class StableMgr implements Serializable {
 			this.name = name;
 			this.type = type;
 			this.time = time;
-			this.variant = horse.getVariant();
+			//this.variant = horse.getVariant();
 			this.color = horse.getColor();
 			this.style = horse.getStyle();
-			//this.haschest = horse.isCarryingChest();
+			
 			this.health = ((Damageable)horse).getMaxHealth();
 			this.jumpstr = horse.getJumpStrength();
 
 			AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) horse)
 					.getHandle()).getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
 			this.speed = attributes.getValue();
+			
 			ItemStack saddle = horse.getInventory().getSaddle();
 			if (saddle != null){
 				setSaddle(saddle);
@@ -287,11 +288,13 @@ public class StableMgr implements Serializable {
 			if (horse.getInventory().getArmor() != null)
 				this.Armor = new ItemStack(horse.getInventory()
 						.getArmor()).serialize();
-			if (this.haschest) {
+			
+			//this.haschest = horse.isCarryingChest();
+			/*if (this.haschest) {
 				for (ItemStack e : horse.getInventory().getContents()) {
 					Inventory.add((e==null)?null:e.serialize());
 				}
-			}
+			}*/
 		}
 		
 		public Mount(String name, EntityType type, Long time, Mule mule) {

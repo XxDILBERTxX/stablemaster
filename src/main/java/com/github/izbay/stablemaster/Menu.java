@@ -169,9 +169,9 @@ public class Menu implements Listener {
 				((Horse) newMount).setMaxHealth(mount.getHealth());
 				((Horse) newMount).setJumpStrength(mount.getJumpstr());
 				//((Horse) newMount).setCarryingChest(mount.HasChest());
-				if (mount.HasChest()) {
+				/*if (mount.HasChest()) {
 					((Horse) newMount).getInventory().setContents(mount.getInventory());
-				}
+				}*/
 				((Horse) newMount).getInventory().setSaddle(mount.getSaddle());
 				((Horse) newMount).getInventory().setArmor(mount.getArmor());
 				((Horse) newMount).setTamed(true);
